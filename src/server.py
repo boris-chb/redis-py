@@ -1,12 +1,11 @@
 import socket
-from typing import List, Union
+from typing import List
 
 from command_parser import parse_command
 
 storage = {}
 
 def execute_command(operation: str, arguments: List[str], client_socket: socket.socket) -> None:
-  
   if operation == 'GET':
     value = storage.get(arguments[0], 'nil')
     client_socket.sendall(value.encode())
@@ -28,8 +27,6 @@ def execute_command(operation: str, arguments: List[str], client_socket: socket.
   
 
 def start_server(host='127.0.0.1', port=6379):
-  print(f"Starting server")
-
   server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   
   # Reuse address (IP:PORT) immediately after server was shut down
@@ -48,7 +45,7 @@ def start_server(host='127.0.0.1', port=6379):
     client_socket, client_address = server_socket.accept()
     print(f'{client_address} connected.')
     
-    # start a new REPL (continuously listen for commands)
+    # start a new REPL (continuously listen for client input)
     while True:
       try:
         data = client_socket.recv(1024).decode('utf-8')
@@ -64,7 +61,11 @@ def start_server(host='127.0.0.1', port=6379):
       # Operation: GET, args: ['key']
       operation, arguments = parse_command(data)
 
-      execute_command(operation=operation, arguments=arguments, client_socket=client_socket)
+      execute_command(
+        operation=operation,
+        arguments=arguments,
+        client_socket=client_socket
+      )
       
       print(f'Received: {data}\nStorage:{storage}')
       client_socket.sendall(b'\n> ')

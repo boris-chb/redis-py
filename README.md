@@ -2,6 +2,14 @@
 
 A simplified Redis clone built using Python for educational purposes.
 
+## Features
+
+- [x] Basic TCP server
+- [ ] Command parser
+- [ ] GET, SET, DEL commands
+- [ ] Persistence
+- [ ] Multi-threading
+
 ## Getting Started
 
 ### Prerequisites
@@ -53,14 +61,6 @@ telnet 127.0.0.1 6379
 
 You can now type commands and see responses from the server.
 
-## Features
-
-- [x] Basic TCP server
-- [ ] Command parser
-- [ ] GET, SET, DEL commands
-- [ ] Persistence
-- [ ] Multi-threading
-
-### License
+## License
 
 This project is licensed under the MIT License.

@@ -1,0 +1,3 @@
+storage = {}
+
+PERIODIC_SAVE_INTERVAL_SECONDS = 300
